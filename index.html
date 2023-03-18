@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>생일 축하 페이지</title>
+</head>
+<body>
+  <header>
+    <h1>엄마한테 생일 축하해요!</h1>
+  </header>
+  <main>
+    <section id="password-section">
+      <h2>비밀번호를 입력하세요:</h2>
+      <input type="password" id="password-input">
+      <button id="password-button">입력</button>
+    </section>
+    <section id="greeting-section" style="display:none">
+      <h2>생일 축하해요 엄마! 사랑해요!</h2>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2023, My Birthday Page</p>
+  </footer>
+  <script>
+    // 생일 날짜
+    const birthday = new Date('2023-03-18T00:00:00');
+    // 비밀번호 입력 버튼
+    const passwordButton = document.getElementById('password-button');
+    // 비밀번호 입력 input
+    const passwordInput = document.getElementById('password-input');
+    // 비밀번호 입력 섹션
+    const passwordSection = document.getElementById('password-section');
+    // 축하 메시지 섹션
+    const greetingSection = document.getElementById('greeting-section');
+
+    // 현재 시간과 생일 시간을 비교하여 축하 메시지를 보여줄지 여부를 결정하는 함수
+    function checkBirthday() {
+      const now = new Date();
+      if (now >= birthday) {
+        // 생일인 경우 축하 메시지를 보여줌
+        greetingSection.style.display = 'block';
+        passwordSection.style.display = 'none';
+      } else if (now >= new Date('2023-03-17T23:00:00')) {
+        // 생일 전날 11시부터 생일 전까지는 비밀번호 입력란 옆에 메시지를 보여줌
+        passwordSection.insertAdjacentHTML('afterend', '<p>비밀번호는 당신의 생일입니다.</p>');
+      } else {
+        // 생일 전일 경우 비밀번호 입력란만 보여줌
+        greetingSection.style.display = 'none';
+        passwordSection.style.display = 'block';
+      }
+    }
+
+    // 비밀번호 입력 버튼을 눌렀을 때 비밀번호를 확인하고 축하 메시지를 보여주는 이벤트 핸들러
+    passwordButton.addEventListener('click', () => {
+      const password = passwordInput.value;
+      if (password === '0227') {
+        checkBirthday();
+      } else {
+        alert('비밀번호가 일치하지 않습니다.');
+      }
+    });
+
+    // 페이지 로드 시 비밀번호 입력란에 포커스를 줌
+    window.onload = function() {
+      passwordInput.focus();
+    }
+  </script>
+</body>
+</html>
